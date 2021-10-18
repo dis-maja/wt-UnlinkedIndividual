@@ -186,6 +186,7 @@ class UnlinkedIndividualModule extends AbstractModule implements ModuleCustomInt
     {
 	return [
 	    'Create an unlinked individual' => 'Skapa en olänkad person',
+	    'Created individual %s' => 'Skapade personen %s',
 	    'Unlinked individual' => 'Olänkad person',
 	];
     }
