@@ -19,10 +19,13 @@ declare(strict_types=1);
 
 namespace DISMaja\Webtrees\Module\UnlinkedIndividual\Http;
 
-use Fisharebest\Webtrees\Services\GedcomEditService;
+use Fisharebest\Webtrees\Http\RequestHandlers\IndividualPage;
+use Fisharebest\Webtrees\FlashMessages;
+use Fisharebest\Webtrees\Functions\FunctionsImport;
+use Fisharebest\Webtrees\I18N;
 use Fisharebest\Webtrees\Log;
 use Fisharebest\Webtrees\Tree;
-use Fisharebest\Webtrees\Functions\FunctionsImport;
+use Fisharebest\Webtrees\Services\GedcomEditService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -63,8 +66,6 @@ class UnlinkedAction implements RequestHandlerInterface
 	$url = route(UnlinkedAction::class, ['tree' => $tree->name()]);
 	$url = str_replace('%2Funlinked-individual','', $url);
 	
-	Log::addMediaLog(serialize($request));
-
 	$params = (array) $request->getParsedBody();
 
 	$gedrec = array();
@@ -76,16 +77,17 @@ class UnlinkedAction implements RequestHandlerInterface
 
 	$gedcom = implode(chr(10), $gedrec);
 
-#	Log::addMediaLog($gedrec);
-	 
-	$foo = $tree->createRecord($gedcom);
-#	Log::addMediaLog(serialize($foo));
-	 
-#	FunctionsImport::importRecord($gedrec, $tree, false);
+	$new = $tree->createRecord($gedcom);
 
-#        if (($params['goto'] ?? '') === 'new') {
-#            return redirect($new_indi->url());
-#        }
+	Flashmessages::addMessage(I18N::translate('Created individual %s',
+						  $params['GIVN'] . ' ' .
+						  $params['SURN']));
+
+        if (($params['goto'] ?? '') === 'new') {
+            return redirect(route(IndividualPage::class,
+				  [ 'tree' => $tree->name(),
+				    'xref' => $new->xref() ]));
+	}
 
         return redirect($url);
     }
