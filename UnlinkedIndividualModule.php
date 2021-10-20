@@ -138,7 +138,7 @@ class UnlinkedIndividualModule extends AbstractModule implements ModuleCustomInt
      */
     public function customModuleVersion(): string
     {
-	return '2.0.2';
+	return '2.0.3';
     }
 
     /**
@@ -171,6 +171,8 @@ class UnlinkedIndividualModule extends AbstractModule implements ModuleCustomInt
     public function customTranslations(string $language): array
     {
 	switch ($language) {
+	    case 'de':
+		return $this->germanTranslations();
 	    case 'sv':
 		return $this->swedishTranslations();
 
@@ -188,6 +190,20 @@ class UnlinkedIndividualModule extends AbstractModule implements ModuleCustomInt
 	    'Create an unlinked individual' => 'Skapa en olänkad person',
 	    'Created individual %s' => 'Skapade personen %s',
 	    'Unlinked individual' => 'Olänkad person',
+	];
+    }
+
+    /**
+     * @return array<string,string>
+     *
+     * German translation from Hermann Hartenthaler
+     */
+    protected function germanTranslations(): array
+    {
+	return [
+	    'Create an unlinked individual' => 'Erzeuge eine unverbundene Person',
+	    'Created individual %s' => 'Person %s wurde erzeugt',
+	    'Unlinked individual' => 'Unverbundene Person',
 	];
     }
 
