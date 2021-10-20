@@ -9,6 +9,7 @@ use Fisharebest\Webtrees\Gedcom;
 use Fisharebest\Webtrees\GedcomTag;
 use Fisharebest\Webtrees\Http\RequestHandlers\EditRawFactPage;
 use Fisharebest\Webtrees\Http\RequestHandlers\ManageTrees;
+use Fisharebest\Webtrees\Http\RequestHandlers\TreePage;
 use Fisharebest\Webtrees\I18N;
 use Fisharebest\Webtrees\Individual;
 use Fisharebest\Webtrees\SurnameTradition;
@@ -31,8 +32,7 @@ use Ramsey\Uuid\Uuid;
 ?>
 <?php
 
-    $cancel_url = route(UnlinkedAction::class, ['tree' => $tree->name()]);
-    $cancel_url = str_replace('%2Funlinked-individual','', $cancel_url);
+    $cancel_url = route(TreePage::class, ['tree' => $tree->name()]);
     $xref       = 'new';
 
     // Creating a new name
