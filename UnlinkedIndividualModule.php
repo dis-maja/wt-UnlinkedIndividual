@@ -138,7 +138,7 @@ class UnlinkedIndividualModule extends AbstractModule implements ModuleCustomInt
      */
     public function customModuleVersion(): string
     {
-	return '2.0.3';
+	return '2.0.4';
     }
 
     /**
